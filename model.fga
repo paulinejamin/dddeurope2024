@@ -1,0 +1,15 @@
+model
+  schema 1.1
+  
+type user
+
+type staff
+
+type entity
+  relations
+    define admin: [user]
+    define staff: [staff]
+    define member: [user] or admin
+    define view_payments: admin or staff
+    define approve_payments: admin
+    define grant_staff_access: admin

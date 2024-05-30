@@ -1,0 +1,43 @@
+name: WayneCorpFr2024
+model_file: ./model.fga
+tuples:
+  - user: user:Bruce
+    relation: member
+    object: entity:WayneCorp
+  - user: user:Lucius
+    relation: admin
+    object: entity:WayneCorp
+  - user: staff:Gordon
+    relation: staff
+    object: entity:WayneCorp
+tests:
+  - name: approve_payments
+    description: Only admins can approve payments
+    check:
+      - user: user:Bruce
+        object: entity:WayneCorp
+        assertions:
+          approve_payments: false
+      - user: user:Lucius
+        object: entity:WayneCorp
+        assertions:
+          approve_payments: true
+      - user: staff:Gordon
+        object: entity:WayneCorp
+        assertions:
+          approve_payments: false
+  - name: view_payments
+    description: Admins and staff can view payments
+    check:
+      - user: user:Bruce
+        object: entity:WayneCorp
+        assertions:
+          view_payments: false
+      - user: user:Lucius
+        object: entity:WayneCorp
+        assertions:
+          view_payments: true
+      - user: staff:Gordon
+        object: entity:WayneCorp
+        assertions:
+          view_payments: true
